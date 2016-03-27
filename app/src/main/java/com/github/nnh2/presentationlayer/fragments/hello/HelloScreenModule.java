@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.github.nnh2.domainlayer.filters.CombiFilter;
 import com.github.nnh2.domainlayer.filters.Filters;
 import com.github.nnh2.domainlayer.filters.MedianFilter;
+import com.github.nnh2.domainlayer.filters.MonochromeFilter;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 
 import dagger.Module;
@@ -26,7 +27,7 @@ public class HelloScreenModule {
 	@Provides
 	@NonNull
 	Filters provideFilters() {
-		return new CombiFilter(new MedianFilter(3));
+		return new CombiFilter(new MedianFilter(3),new MonochromeFilter(100));
 	}
 }
 
