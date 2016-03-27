@@ -81,4 +81,5 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	public void setImage(Bitmap bm) {
 		image.setImageBitmap(bm);
 	}
+
 }

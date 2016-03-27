@@ -37,6 +37,8 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 		Observable.just(view().getLastPath())
 				.map(this::readImage)
 				.subscribeOn(schedulers.io())
+				.observeOn(schedulers.mainThread())
+				.doOnNext(bm -> view().setImage(bm))
 				.observeOn(schedulers.computation())
 				.map(filters::transform)
 				.observeOn(schedulers.mainThread())
