@@ -5,7 +5,6 @@ package com.github.nnh2.presentationlayer.fragments.hello;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -15,10 +14,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mrvilkaman.namegenerator.R;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 import com.github.nnh2.presentationlayer.utils.PhotoUtils;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -60,8 +55,8 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
 		builder.positiveText(R.string.dialog_take_photo)
 				.negativeText(R.string.dialog_get_photo)
-				.onPositive((dialog, which) -> PhotoUtils.openCamera(HelloScreenFragment.this,PhotoUtils.AVATAR_FILE_NAME))
-				.onNegative((dialog, which) -> PhotoUtils.openGallery(HelloScreenFragment.this,PhotoUtils.AVATAR_FILE_NAME))
+				.onPositive((dialog, which) -> PhotoUtils.openCamera(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
+				.onNegative((dialog, which) -> PhotoUtils.openGallery(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
 				.show();
 	}
 
@@ -72,7 +67,7 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 			getPresenter().newPhotoTaken();
 		}
 
-		PhotoUtils.onActivityResult(this,requestCode,data);
+		PhotoUtils.onActivityResult(this, requestCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
@@ -83,7 +78,7 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	}
 
 	@Override
-	public void setImage(Bitmap bm){
+	public void setImage(Bitmap bm) {
 		image.setImageBitmap(bm);
 	}
 }

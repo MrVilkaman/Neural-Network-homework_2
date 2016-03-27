@@ -2,6 +2,9 @@ package com.github.nnh2.presentationlayer.fragments.hello;
 
 import android.support.annotation.NonNull;
 
+import com.github.nnh2.domainlayer.filters.CombiFilter;
+import com.github.nnh2.domainlayer.filters.Filters;
+import com.github.nnh2.domainlayer.filters.RedFilter;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 
 import dagger.Module;
@@ -15,8 +18,15 @@ public class HelloScreenModule {
 
 	@Provides
 	@NonNull
-	HelloScreenPresenter provideHelloScreenPresenter(SchedulersProvider schedulers) {
-		return new HelloScreenPresenter(schedulers);
+	HelloScreenPresenter provideHelloScreenPresenter(SchedulersProvider schedulers, Filters filters) {
+		return new HelloScreenPresenter(schedulers,filters);
+	}
+
+
+	@Provides
+	@NonNull
+	Filters provideFilters() {
+		return new CombiFilter(new RedFilter());
 	}
 }
 

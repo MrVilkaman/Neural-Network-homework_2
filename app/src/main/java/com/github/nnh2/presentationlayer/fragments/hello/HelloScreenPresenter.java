@@ -2,7 +2,9 @@ package com.github.nnh2.presentationlayer.fragments.hello;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 
+import com.github.nnh2.domainlayer.filters.Filters;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 import com.github.nnh2.presentationlayer.fragments.core.BasePresenter;
 
@@ -17,10 +19,12 @@ import rx.Observable;
 public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 
 	private SchedulersProvider schedulers;
+	private Filters filters;
 
 	@Inject
-	public HelloScreenPresenter(SchedulersProvider schedulers) {
+	public HelloScreenPresenter(SchedulersProvider schedulers,Filters filters) {
 		this.schedulers = schedulers;
+		this.filters = filters;
 	}
 
 	@Override
@@ -29,10 +33,14 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 	}
 
 	public void newPhotoTaken() {
+		view().showProgress();
 		Observable.just(view().getLastPath())
 				.map(this::readImage)
 				.subscribeOn(schedulers.io())
+				.observeOn(schedulers.computation())
+				.map(filters::transform)
 				.observeOn(schedulers.mainThread())
+				.doOnTerminate(() -> view().hideProgress())
 				.subscribe(bm -> view().setImage(bm));
 
 	}
@@ -40,6 +48,7 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 	private Bitmap readImage(String path) {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		options.inMutable = true;
 		return BitmapFactory.decodeFile(path, options);
 	}
 }
