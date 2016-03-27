@@ -8,9 +8,4 @@ import com.github.nnh2.presentationlayer.fragments.core.BasePresenter;
 
 public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 
-
-	public void onClickBtn() {
-		view().goToMainScreen();
-	}
-
 }

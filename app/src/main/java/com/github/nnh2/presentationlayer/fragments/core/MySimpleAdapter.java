@@ -29,6 +29,7 @@ public class MySimpleAdapter<T> extends MySimpleBaseAdapter<T,MySimpleAdapter.Vi
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		super.onBindViewHolder(holder, position);
 		holder.textView.setText(getItem(position).toString());
+		notifyDataSetChanged();
 	}
 
 	protected int getLayoutId() {

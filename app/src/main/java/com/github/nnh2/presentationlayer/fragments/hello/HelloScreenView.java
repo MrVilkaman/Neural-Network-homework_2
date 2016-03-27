@@ -8,5 +8,4 @@ import com.github.nnh2.presentationlayer.fragments.core.BaseView;
 
 public interface HelloScreenView extends BaseView {
 
-	void goToMainScreen();
 }

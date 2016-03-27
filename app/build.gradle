@@ -58,6 +58,8 @@ dependencies {
     compile libraries.supportRecyclerView
 
     compile libraries.butterKnife
+    compile libraries.picasso
+    compile libraries.simplecropview
 
     compile libraries.rxJava
     compile libraries.rxAndroid

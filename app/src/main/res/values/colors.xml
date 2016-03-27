@@ -8,5 +8,6 @@
 	<color name="textColor">#111</color>
 
 	<color name="divider_color">#888</color>
+	<color name="crop_frame_color">#fff</color>
 
 </resources>

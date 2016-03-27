@@ -143,7 +143,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
 	protected abstract int getLayoutId();
 
-	protected void showFragment(BaseFragment fragment) {
+	public void showFragment(BaseFragment fragment) {
 		getBaseActivity().loadRootFragment(fragment, true, false, false, false);
 	}
 
@@ -170,6 +170,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 	@Override
 	public P getPresenter() {
 		return relationPresenter;
+	}
+
+	protected void setPresenter(P presenter) {
+		relationPresenter = presenter;
 	}
 
 	@Override
