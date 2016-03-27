@@ -2,6 +2,8 @@ package com.github.nnh2.presentationlayer.fragments.hello;
 
 import android.support.annotation.NonNull;
 
+import com.github.nnh2.domainlayer.providers.SchedulersProvider;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,8 +15,8 @@ public class HelloScreenModule {
 
 	@Provides
 	@NonNull
-	HelloScreenPresenter provideHelloScreenPresenter() {
-		return new HelloScreenPresenter();
+	HelloScreenPresenter provideHelloScreenPresenter(SchedulersProvider schedulers) {
+		return new HelloScreenPresenter(schedulers);
 	}
 }
 

@@ -4,8 +4,10 @@ package com.github.nnh2.presentationlayer.fragments.hello;
  */
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -67,19 +69,21 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		if (requestCode == PhotoUtils.CROP_PHOTO_REQUEST_CODE) {
-
-		String path = PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
-		Uri uri = Uri.fromFile(new File(path));
-		PhotoUtils.normalizeImageForUri(getActivity(), uri);
-		Picasso.with(getActivity())
-				.load(uri)
-				.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-//				.placeholder(R.drawable.md_btn_shape)
-//				.transform(new CropSquareTransformation())
-				.into(image);
+			getPresenter().newPhotoTaken();
 		}
 
 		PhotoUtils.onActivityResult(this,requestCode,data);
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@NonNull
+	@Override
+	public String getLastPath() {
+		return PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
+	}
+
+	@Override
+	public void setImage(Bitmap bm){
+		image.setImageBitmap(bm);
 	}
 }

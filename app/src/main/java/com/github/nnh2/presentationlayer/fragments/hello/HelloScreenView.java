@@ -1,5 +1,8 @@
 package com.github.nnh2.presentationlayer.fragments.hello;
 
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+
 import com.github.nnh2.presentationlayer.fragments.core.BaseView;
 
 /**
@@ -8,4 +11,8 @@ import com.github.nnh2.presentationlayer.fragments.core.BaseView;
 
 public interface HelloScreenView extends BaseView {
 
+	@NonNull
+	String getLastPath();
+
+	void setImage(Bitmap bm);
 }
