@@ -16,17 +16,22 @@ public class MonochromeFilter extends PixelFilterAbs{
 	protected void doWork(int[] pixels, int[] pixelsNew, int width, int height) {
 
 		for (int i = 0; i < width; i++){
-			final int current = i * width;
+			final int current = i * height;
 			for (int j = 0; j < height; j++){
 
 				int index = current + j;
 				int pixel = pixels[index];
+
+				if (pixel == Color.TRANSPARENT) {
+					continue;
+				}
+
 				int summ = Color.red(pixel);
 				summ += Color.green(pixel);
 				summ += Color.blue(pixel);
 				summ /= 3;
 
-				pixelsNew[index] = !(summ < level) ? Color.BLACK : Color.WHITE;
+				pixelsNew[index] = !(summ < level) ? Color.BLACK : Color.RED;
 			}
 		}
 	}

@@ -29,8 +29,8 @@ public class HelloScreenModule {
 	@NonNull
 	Filters provideFilters() {
 		return new CombiFilter(
+				new MedianFilter(3),
 				new ResizeFilter(30,40),
-				//new MedianFilter(3)/*,*/)
 				 new MonochromeFilter(180)
 		);
 	}
