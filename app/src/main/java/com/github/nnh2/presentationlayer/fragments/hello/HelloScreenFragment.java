@@ -8,6 +8,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SlidingPaneLayout;
 import android.view.View;
 import android.widget.ImageView;
 
