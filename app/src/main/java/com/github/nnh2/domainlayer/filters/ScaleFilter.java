@@ -10,12 +10,14 @@ public class ScaleFilter implements Filters {
 
 
 	private final int level;
+	private final float deltaPersent;
 	private int delta;
 	private boolean onlyShow;
 
-	public ScaleFilter(int level, int delta, boolean onlyShow) {
+	public ScaleFilter(int level, float delta, int deltaMin, boolean onlyShow) {
 		this.level = level;
-		this.delta = delta;
+		this.delta = deltaMin;
+		this.deltaPersent = delta;
 		this.onlyShow = onlyShow;
 	}
 
@@ -34,7 +36,7 @@ public class ScaleFilter implements Filters {
 		} else {
 			int width2 = endPoints.right - endPoints.left;
 			int height2 = endPoints.bottom - endPoints.top;
-			return Bitmap.createBitmap(bitmap,endPoints.left,endPoints.top,width2,height2);
+			return Bitmap.createBitmap(bitmap, endPoints.left, endPoints.top, width2, height2);
 		}
 	}
 
@@ -45,7 +47,7 @@ public class ScaleFilter implements Filters {
 		endPoints.bottom = findBottom(pixelsNew, width, height);
 		endPoints.left = findLeft(pixelsNew, width, height);
 		endPoints.right = findRight(pixelsNew, width, height);
-		endPoints.handle(width, height, delta);
+		endPoints.handle(width, height, delta,deltaPersent);
 
 		drawVLine(pixelsNew, width, height, endPoints);
 		endPoints.pixels = pixelsNew;
@@ -148,11 +150,14 @@ public class ScaleFilter implements Filters {
 			return left == j || right == j || top == i || bottom == i;
 		}
 
-		public void handle(int width, int height, int delta) {
-			top += 0 < (top - delta) ? -delta : 0;
-			left += 0 < (left - delta) ? -delta : 0;
-			bottom += (bottom + delta < height) ? delta : 0;
-			right += (right + delta < width) ? delta : 0;
+		public void handle(int width, int height, int delta, float deltaPersent) {
+			float del = Math.max(deltaPersent * height, delta);
+			top += 0 < (top - del) ? -del : 0;
+			bottom += (bottom + del < height) ? del : 0;
+
+			del = Math.max(deltaPersent * width, delta);
+			left += 0 < (left - del) ? -del : 0;
+			right += (right + del < width) ? del : 0;
 		}
 	}
 }

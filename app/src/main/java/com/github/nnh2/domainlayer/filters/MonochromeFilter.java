@@ -39,10 +39,10 @@ public class MonochromeFilter extends PixelFilterAbs {
 	}
 
 	public int getWhite() {
-		return Color.BLACK;
+		return Color.WHITE;
 	}
 
 	public int getBlack() {
-		return Color.RED;
+		return Color.BLACK;
 	}
 }
