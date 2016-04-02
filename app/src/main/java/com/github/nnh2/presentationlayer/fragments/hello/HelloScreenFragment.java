@@ -4,6 +4,7 @@ package com.github.nnh2.presentationlayer.fragments.hello;
  */
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mrvilkaman.namegenerator.R;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 import com.github.nnh2.presentationlayer.utils.PhotoUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -67,14 +71,27 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 			getPresenter().newPhotoTaken();
 		}
 
-		PhotoUtils.onActivityResult(this, requestCode,resultCode, data);
+		PhotoUtils.onActivityResult(this, requestCode, resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public InputStream getAssetStreem() {
+		AssetManager assets = getActivity().getAssets();
+		try {
+			String[] list = assets.list("");
+			return assets.open(list[(int) (Math.random() * (list.length - 4))]);
+//			return assets.open(list[1]);
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	@NonNull
 	@Override
 	public String getLastPath() {
-		return PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
+//			return PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
+		return null;
 	}
 
 	@Override

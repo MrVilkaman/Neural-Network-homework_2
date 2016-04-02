@@ -25,12 +25,22 @@ public class ResizeFilter implements Filters {
 		float originalWidth = bitmap.getWidth(), originalHeight = bitmap.getHeight();
 		Canvas canvas = new Canvas(background);
 		float scale = width / originalWidth;
-		float xTranslation = 0.0f, yTranslation = (height - originalHeight * scale) / 2.0f;
+		float scale2 = height / originalHeight;
+		float xTranslation = 0.0f;
+		float yTranslation = 0f;
+		if(scale < scale2){
+			yTranslation = (height - originalHeight * scale) / 2.0f;
+		}else{
+			scale = scale2;
+			xTranslation = (width - originalWidth * scale2) / 2.0f;
+		}
+
 		Matrix transformation = new Matrix();
 		transformation.postTranslate(xTranslation, yTranslation);
 		transformation.preScale(scale, scale);
 		Paint paint = new Paint();
 		paint.setFilterBitmap(true);
+		paint.setAntiAlias(false);
 		canvas.drawBitmap(bitmap, transformation, paint);
 		return background;
 	}

@@ -2,12 +2,15 @@ package com.github.nnh2.presentationlayer.fragments.hello;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 
 import com.github.nnh2.domainlayer.filters.Filters;
 import com.github.nnh2.domainlayer.filters.MedianFilter;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 import com.github.nnh2.presentationlayer.fragments.core.BasePresenter;
+
+import java.io.InputStream;
 
 import javax.inject.Inject;
 
@@ -42,6 +45,8 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 		view().showProgress();
 		Observable.just(view().getLastPath())
 				.map(this::readImage)
+				.concatWith(Observable.just(readImageFromAsset(view().getAssetStreem())))
+				.first( bitmap -> bitmap != null)
 				.subscribeOn(schedulers.io())
 				.observeOn(schedulers.mainThread())
 				.doOnNext(bm -> view().setImage(bm))
@@ -54,9 +59,21 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 	}
 
 	private Bitmap readImage(String path) {
+		if (path == null) {
+			return null;
+		}
+
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		options.inMutable = true;
 		return BitmapFactory.decodeFile(path, options);
+	}
+
+	private Bitmap readImageFromAsset(InputStream streem) {
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		options.inMutable = true;
+		Bitmap bitmap = BitmapFactory.decodeStream(streem);
+		return bitmap.copy(bitmap.getConfig(),true);
 	}
 }

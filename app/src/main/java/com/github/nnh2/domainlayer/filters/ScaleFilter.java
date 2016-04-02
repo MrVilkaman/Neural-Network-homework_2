@@ -152,12 +152,18 @@ public class ScaleFilter implements Filters {
 
 		public void handle(int width, int height, int delta, float deltaPersent) {
 			float del = Math.max(deltaPersent * height, delta);
-			top += 0 < (top - del) ? -del : 0;
-			bottom += (bottom + del < height) ? del : 0;
+			float v0 = top - del;
+			top += 0 < v0 ? -del : Math.abs(v0);
+			float v1 = bottom + del;
+			bottom += (v1 < height) ? del : Math.abs(v1);
 
 			del = Math.max(deltaPersent * width, delta);
-			left += 0 < (left - del) ? -del : 0;
-			right += (right + del < width) ? del : 0;
+			float v = left - del;
+			left += 0 < v ? -del : Math.abs(v1);
+			float v2 = right + del;
+			right += (v2 < width) ? del : Math.abs(v2);
 		}
+
+
 	}
 }

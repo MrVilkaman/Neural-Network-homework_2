@@ -8,7 +8,7 @@
 	<com.github.nnh2.presentationlayer.customviews.PixelArtImageView
 		android:antialias="false"
 		android:scaleType="fitCenter"
-		tools:src="@android:drawable/arrow_down_float"
+		tools:src="@android:drawable/ic_input_add"
 		android:paddingLeft="16dp"
 		android:paddingRight="16dp"
 		android:paddingTop="32dp"
