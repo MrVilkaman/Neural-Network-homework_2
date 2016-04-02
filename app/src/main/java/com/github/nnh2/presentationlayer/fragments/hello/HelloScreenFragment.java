@@ -67,7 +67,7 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 			getPresenter().newPhotoTaken();
 		}
 
-		PhotoUtils.onActivityResult(this, requestCode, data);
+		PhotoUtils.onActivityResult(this, requestCode,resultCode, data);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 

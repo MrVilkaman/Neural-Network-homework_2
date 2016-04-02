@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import com.github.nnh2.domainlayer.filters.Filters;
+import com.github.nnh2.domainlayer.filters.MedianFilter;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 import com.github.nnh2.presentationlayer.fragments.core.BasePresenter;
 
@@ -29,6 +30,11 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 
 	@Override
 	protected void onViewAttached() {
+
+//		MedianFilter filter = new MedianFilter(3);
+//
+//		int[] pixels = new int[16];
+//		filter.doWork(pixels,4,4);
 		newPhotoTaken();
 	}
 

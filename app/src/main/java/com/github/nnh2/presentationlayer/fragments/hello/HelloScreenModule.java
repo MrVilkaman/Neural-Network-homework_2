@@ -6,6 +6,7 @@ import com.github.nnh2.domainlayer.filters.CombiFilter;
 import com.github.nnh2.domainlayer.filters.Filters;
 import com.github.nnh2.domainlayer.filters.MedianFilter;
 import com.github.nnh2.domainlayer.filters.MonochromeFilter;
+import com.github.nnh2.domainlayer.filters.ResizeFilter;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 
 import dagger.Module;
@@ -20,14 +21,18 @@ public class HelloScreenModule {
 	@Provides
 	@NonNull
 	HelloScreenPresenter provideHelloScreenPresenter(SchedulersProvider schedulers, Filters filters) {
-		return new HelloScreenPresenter(schedulers,filters);
+		return new HelloScreenPresenter(schedulers, filters);
 	}
 
 
 	@Provides
 	@NonNull
 	Filters provideFilters() {
-		return new CombiFilter(new MedianFilter(3),new MonochromeFilter(100));
+		return new CombiFilter(
+				new ResizeFilter(30,40),
+				//new MedianFilter(3)/*,*/)
+				 new MonochromeFilter(180)
+		);
 	}
 }
 

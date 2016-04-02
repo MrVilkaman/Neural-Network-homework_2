@@ -12,13 +12,14 @@ public abstract class PixelFilterAbs implements Filters {
 		int height = bitmap.getHeight();
 		int width = bitmap.getWidth();
 		int[] pixels = new int[height * width];
+		int[] pixelsNew = new int[height * width];
 
 		bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-		doWork(pixels, width, height);
+		doWork(pixels,pixelsNew, width, height);
 
-		bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+		bitmap.setPixels(pixelsNew, 0, width, 0, 0, width, height);
 		return bitmap;
 	}
 
-	protected abstract void doWork(int[] pixels, int width, int height);
+	protected abstract void doWork(int[] pixels, int[] pixelsNew, int width, int height);
 }

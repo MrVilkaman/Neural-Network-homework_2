@@ -17,31 +17,36 @@ public class MedianFilter extends PixelFilterAbs {
 	}
 
 	@Override
-	protected void doWork(int[] pixels, int width, int height) {
-		for (int i = 0; i < width - windowSize; i++)
-			for (int j = 0; j < height - windowSize; j++) {
+	public void doWork(int[] pixels, int[] pixelsNew, int width, int height) {
+		int half = windowSize / 2;
+
+		for (int i = half; i < width - half; i++)
+			for (int j = half; j < height - half; j++) {
 
 				int length = windowSize * windowSize;
 				int[] red = new int[length];
 				int[] green = new int[length];
 				int[] blue = new int[length];
 
-				for (int wi = 0; wi < windowSize; wi++)
-					for (int wj = 0; wj < windowSize; wj++) {
-						int currentPixel = (i + wi) * height + j + wj;
+				int count = 0;
+				for (int wi = -half; wi <= half; wi++)
+					for (int wj = -half; wj <= half; wj++) {
+						int currentPixel = (j + wj) * width + i + wi;
 
 						int pixel = pixels[currentPixel];
-						red[wi * windowSize + wj] = Color.red(pixel);
-						green[wi * windowSize + wj] = Color.green(pixel);
-						blue[wi * windowSize + wj] = Color.blue(pixel);
+						red[count] = Color.red(pixel);
+						green[count] = Color.green(pixel);
+						blue[count] = Color.blue(pixel);
+						count++;
 					}
 
 				Arrays.sort(red);
 				Arrays.sort(green);
 				Arrays.sort(blue);
 
-				int medium = (this.windowSize + 1) / 2;
-				pixels[i * height + i] = Color.rgb(red[medium], green[medium], blue[medium]);
+				int medium = length-1;//(length + 1) / 2;
+				int index = j * width + i;
+				pixels[index] = Color.rgb(red[medium], green[medium], blue[medium]);
 			}
 	}
 }

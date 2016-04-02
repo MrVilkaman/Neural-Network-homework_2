@@ -1,5 +1,6 @@
 package com.github.nnh2.presentationlayer.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -51,6 +52,11 @@ public class PhotoUtils {
 
     public static void openGallery(Fragment fragment, String fileName) {
         System.gc();
+		File dir = new File(getPathToTempFiles(fragment.getActivity()));
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+
         Intent intent = new Intent(Intent.ACTION_PICK);
         lastFileName = fileName;
         intent.setType("image/*");
@@ -77,7 +83,10 @@ public class PhotoUtils {
         return StorageUtils.getStoragePath(context) + File.separator + IMAGE_TEMP + File.separator;
     }
 
-    public static void onActivityResult(BaseFragment fragment, int requestCode, Intent data) {
+    public static void onActivityResult(BaseFragment fragment, int requestCode, int resultCode, Intent data) {
+		if (resultCode != Activity.RESULT_OK) {
+			return;
+		}
 		Context context = fragment.getActivity();
 		if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
             final Uri selectedImage = data.getData();
