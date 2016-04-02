@@ -14,7 +14,7 @@ public class MedianFilterTest {
 
 		int[] pixels = new int[16];
 		int[] pixelsNew = new int[16];
-		filter.doWork(pixels, pixelsNew, 4,4);
+		filter.doWork(pixels, 4,4);
 
 		Assert.assertTrue(true);
 	}

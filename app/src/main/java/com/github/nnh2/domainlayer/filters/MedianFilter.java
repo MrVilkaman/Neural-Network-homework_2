@@ -17,7 +17,7 @@ public class MedianFilter extends PixelFilterAbs {
 	}
 
 	@Override
-	public void doWork(int[] pixels, int[] pixelsNew, int width, int height) {
+	public int[] doWork(int[] pixels, int width, int height) {
 		int half = windowSize / 2;
 
 		for (int i = half; i < width - half; i++)
@@ -48,7 +48,8 @@ public class MedianFilter extends PixelFilterAbs {
 
 				int medium = length-1;//(length + 1) / 2;
 				int index = j * width + i;
-				pixelsNew[index] = Color.argb(alpha,red[medium], green[medium], blue[medium]);
+//				pixelsNew[index] = Color.argb(alpha,red[medium], green[medium], blue[medium]);
 			}
+		return pixels;
 	}
 }

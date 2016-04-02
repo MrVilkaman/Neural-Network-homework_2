@@ -13,7 +13,8 @@ public class MonochromeFilter extends PixelFilterAbs {
 	}
 
 	@Override
-	protected void doWork(int[] pixels, int[] pixelsNew, int width, int height) {
+	protected int[] doWork(int[] pixels, int width, int height) {
+		int[] pixelsNew = pixels.clone();
 
 		for (int i = 0; i < height; i++) {
 			final int current = i * width;
@@ -34,6 +35,7 @@ public class MonochromeFilter extends PixelFilterAbs {
 				pixelsNew[index] = (summ < level) ? getBlack() : getWhite();
 			}
 		}
+		return pixelsNew;
 	}
 
 	public int getWhite() {

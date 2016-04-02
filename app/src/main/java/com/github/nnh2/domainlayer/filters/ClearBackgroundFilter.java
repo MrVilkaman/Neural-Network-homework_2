@@ -20,7 +20,7 @@ public class ClearBackgroundFilter extends PixelFilterAbs {
 	}
 
 	@Override
-	protected void doWork(int[] pixels, int[] pixelsNew, int width, int height) {
+	protected int[] doWork(int[] pixels, int width, int height) {
 		for (int j = 0; j < height; j++)
 			for (int i = 0; i < width; i++){
 
@@ -34,6 +34,7 @@ public class ClearBackgroundFilter extends PixelFilterAbs {
 				boolean b = inRound(red,redBase) && inRound(green,greenBase) && inRound(blue,blueBase);
 				pixels[current] = b ? Color.WHITE: pixel;
 			}
+		return null;
 	}
 
 	private boolean inRound(int pixel,int basePixel) {

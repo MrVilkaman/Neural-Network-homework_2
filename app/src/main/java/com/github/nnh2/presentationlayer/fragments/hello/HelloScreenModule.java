@@ -32,7 +32,7 @@ public class HelloScreenModule {
 		return new CombiFilter(
 //				new MedianFilter(3)
 				new ResizeFilter(90,120),
-				new ScaleFilter()
+				new ScaleFilter(180,2)
 //				new ResizeFilter(30,40),
 //				 new MonochromeFilter(180)
 		);
