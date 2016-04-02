@@ -21,11 +21,11 @@ public class ResizeFilter implements Filters {
 
 	@Override
 	public Bitmap transform(Bitmap bitmap) {
-		Bitmap background = Bitmap.createBitmap((int)width, (int)height, Bitmap.Config.ARGB_8888);
+		Bitmap background = Bitmap.createBitmap((int) width, (int) height, Bitmap.Config.ARGB_8888);
 		float originalWidth = bitmap.getWidth(), originalHeight = bitmap.getHeight();
 		Canvas canvas = new Canvas(background);
-		float scale = width/originalWidth;
-		float xTranslation = 0.0f, yTranslation = (height - originalHeight * scale)/2.0f;
+		float scale = width / originalWidth;
+		float xTranslation = 0.0f, yTranslation = (height - originalHeight * scale) / 2.0f;
 		Matrix transformation = new Matrix();
 		transformation.postTranslate(xTranslation, yTranslation);
 		transformation.preScale(scale, scale);

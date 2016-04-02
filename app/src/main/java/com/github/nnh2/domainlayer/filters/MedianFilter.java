@@ -28,10 +28,12 @@ public class MedianFilter extends PixelFilterAbs {
 				int[] green = new int[length];
 				int[] blue = new int[length];
 
+				int alpha = 0;
 				int count = 0;
 				for (int wi = -half; wi <= half; wi++)
 					for (int wj = -half; wj <= half; wj++) {
 						int currentPixel = (j + wj) * width + i + wi;
+						alpha = Color.alpha(currentPixel);
 
 						int pixel = pixels[currentPixel];
 						red[count] = Color.red(pixel);
@@ -46,7 +48,7 @@ public class MedianFilter extends PixelFilterAbs {
 
 				int medium = length-1;//(length + 1) / 2;
 				int index = j * width + i;
-				pixels[index] = Color.rgb(red[medium], green[medium], blue[medium]);
+				pixelsNew[index] = Color.argb(alpha,red[medium], green[medium], blue[medium]);
 			}
 	}
 }
