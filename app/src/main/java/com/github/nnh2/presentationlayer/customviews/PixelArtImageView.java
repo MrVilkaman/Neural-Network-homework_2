@@ -49,14 +49,14 @@ public class PixelArtImageView extends ImageView {
 		}
 
 
-		int dwidth = (int) (getDrawable().getIntrinsicWidth()*floats[0]);
-		int dheight = (int) (getDrawable().getIntrinsicHeight()*floats[0]);
+		int dwidth = (int) (getDrawable().getIntrinsicWidth() * floats[0]);
+		int dheight = (int) (getDrawable().getIntrinsicHeight() * floats[0]);
 
 
-		float startX = floats[2];
-		float startY = floats[5];
-		float stopX = floats[2]+dwidth;
-		float stopY = floats[5]+dheight;
+		float startX = floats[2] + getPaddingLeft();
+		float startY = floats[5] + getPaddingTop();
+		float stopX = floats[2] + dwidth + getPaddingRight();
+		float stopY = floats[5] + dheight + getPaddingBottom();
 
 
 		canvas.drawLine(startX, startY, stopX, startY, paintRed);

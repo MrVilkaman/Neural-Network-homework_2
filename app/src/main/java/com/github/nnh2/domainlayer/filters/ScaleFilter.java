@@ -1,35 +1,55 @@
 package com.github.nnh2.domainlayer.filters;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
 /**
  * Created by Zahar on 02.04.16.
  */
-public class ScaleFilter extends PixelFilterAbs {
+public class ScaleFilter implements Filters {
 
 
 	private final int level;
 	private int delta;
+	private boolean onlyShow;
 
-	public ScaleFilter(int level, int delta) {
-		this.delta = delta;
+	public ScaleFilter(int level, int delta, boolean onlyShow) {
 		this.level = level;
+		this.delta = delta;
+		this.onlyShow = onlyShow;
 	}
 
 	@Override
-	protected int[] doWork(int[] pixels, int width, int height) {
+	public Bitmap transform(Bitmap bitmap) {
+		int height = bitmap.getHeight();
+		int width = bitmap.getWidth();
+		int[] pixels = new int[height * width];
+
+		bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+		EndPoints endPoints = doWork(pixels, width, height);
+
+		if (onlyShow) {
+			bitmap.setPixels(endPoints.pixels, 0, width, 0, 0, width, height);
+			return bitmap;
+		} else {
+			int width2 = endPoints.right - endPoints.left;
+			int height2 = endPoints.bottom - endPoints.top;
+			return Bitmap.createBitmap(bitmap,endPoints.left,endPoints.top,width2,height2);
+		}
+	}
+
+	protected EndPoints doWork(int[] pixels, int width, int height) {
 		int[] pixelsNew = pixels.clone();
 		EndPoints endPoints = new EndPoints();
 		endPoints.top = findTop(pixelsNew, width, height);
 		endPoints.bottom = findBottom(pixelsNew, width, height);
 		endPoints.left = findLeft(pixelsNew, width, height);
 		endPoints.right = findRight(pixelsNew, width, height);
-
-		delta = 2;
 		endPoints.handle(width, height, delta);
 
 		drawVLine(pixelsNew, width, height, endPoints);
-		return pixelsNew;
+		endPoints.pixels = pixelsNew;
+		return endPoints;
 	}
 
 	protected void drawVLine(int[] pixelsNew, int width, int height, EndPoints endPoints) {
@@ -122,6 +142,7 @@ public class ScaleFilter extends PixelFilterAbs {
 		int bottom;
 		int left;
 		int right;
+		public int[] pixels;
 
 		public boolean hit(int j, int i) {
 			return left == j || right == j || top == i || bottom == i;
