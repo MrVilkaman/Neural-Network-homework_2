@@ -5,16 +5,14 @@ package com.github.nnh2.datalayer.eventbus;
  */
 public class ImageContentEvent {
 
-	private final String name;
 	private int[] pixels;
 	private int width;
 	private int height;
 
-	public ImageContentEvent(String name, int[] pixels, int width, int height) {
+	public ImageContentEvent(int[] pixels, int width, int height) {
 		this.pixels = pixels;
 		this.width = width;
 		this.height = height;
-		this.name = name;
 	}
 
 	public int[] getPixels() {
@@ -27,10 +25,6 @@ public class ImageContentEvent {
 
 	public int getHeight() {
 		return height;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public boolean hasError() {

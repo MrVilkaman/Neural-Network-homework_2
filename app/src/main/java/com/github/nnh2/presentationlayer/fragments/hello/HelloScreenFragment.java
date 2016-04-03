@@ -28,6 +28,9 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	@Bind(R.id.image)
 	ImageView image;
 
+	@Bind(R.id.image_2)
+	ImageView image2;
+
 	public static HelloScreenFragment open() {
 		return new HelloScreenFragment();
 	}
@@ -93,6 +96,11 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	@Override
 	public void setImage(Bitmap bm) {
 		image.setImageBitmap(bm);
+		image2.setImageDrawable(null);
 	}
 
+	@Override
+	public void showImage(Bitmap bm) {
+		image2.setImageBitmap(bm);
+	}
 }

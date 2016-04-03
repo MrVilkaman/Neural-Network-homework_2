@@ -17,6 +17,20 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>
 
+	<com.github.nnh2.presentationlayer.customviews.PixelArtImageView
+		android:antialias="false"
+		android:scaleType="fitCenter"
+		tools:src="@android:drawable/ic_input_delete"
+		android:tint="#F00"
+		android:alpha="0.5"
+		android:paddingLeft="16dp"
+		android:paddingRight="16dp"
+		android:paddingTop="32dp"
+		android:paddingBottom="32dp"
+		android:id="@+id/image_2"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+
 	<LinearLayout
 		android:layout_gravity="center_horizontal"
 

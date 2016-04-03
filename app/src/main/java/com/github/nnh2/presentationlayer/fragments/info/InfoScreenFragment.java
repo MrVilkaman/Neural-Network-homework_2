@@ -69,7 +69,11 @@ public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements I
 		if (adapter == null) {
 			adapter = new InfoAdapter();
 		}
-//		adapter.setOnClick(this::openFriend);
+		adapter.setOnClick(this::showImage);
 		recyclerView.setAdapter(adapter);
+	}
+
+	private void showImage(ImageProcessData imageProcessData) {
+		getPresenter().showImage(imageProcessData);
 	}
 }

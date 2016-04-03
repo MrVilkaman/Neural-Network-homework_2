@@ -13,7 +13,14 @@ public class InfoAdapter extends MySimpleBaseAdapter<ImageProcessData,InfoAdapte
 
 	@Override
 	protected InfoAdapterViewHolder getHolder(View view) {
-		return new InfoAdapterViewHolder(view);
+		InfoAdapterViewHolder holder = new InfoAdapterViewHolder(view);
+		view.setOnClickListener(view1 -> {
+			int position = (int) view1.getTag();
+			if (onClick != null) {
+				onClick.click(items.get(position));
+			}
+		});
+		return holder;
 	}
 
 	@Override

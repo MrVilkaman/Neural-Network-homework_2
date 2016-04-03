@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.github.nnh2.datalayer.eventbus.EventBusModule;
 import com.github.nnh2.datalayer.providers.ProvidersModule;
+import com.github.nnh2.domainlayer.providers.ImageStoreProvider;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 import com.github.nnh2.domainlayer.providers.SessionDataProvider;
 import com.github.nnh2.presentationlayer.activities.MainActivity;
@@ -26,6 +27,8 @@ public interface AppComponent {
 	SchedulersProvider getSchedulersProvider();
 
 	Bus provideRxBus();
+
+	ImageStoreProvider provideImageStoreProvider();
 
 	void inject(@NonNull App app);
 

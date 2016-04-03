@@ -55,7 +55,7 @@ public class ImageStoreProviderImpl implements ImageStoreProvider {
 
 				String filename = path.substring(path.lastIndexOf("/") + 1);
 
-				pixelWrappers.add(new PixelWrapper(pixels, filename));
+				pixelWrappers.add(new PixelWrapper(pixels, filename,width, height));
 			}
 
 		} catch (IOException e) {

@@ -5,12 +5,16 @@ package com.github.nnh2.datalayer.entity;
  */
 public class PixelWrapper {
 
+	private final int width;
+	private final int height;
 	private int[] pixels;
 	private String name;
 
-	public PixelWrapper(int[] pixels, String name) {
+	public PixelWrapper(int[] pixels, String name, int width, int height) {
 		this.pixels = pixels;
 		this.name = name;
+		this.width = width;
+		this.height = height;
 	}
 
 	public int[] getPixels() {
@@ -19,5 +23,13 @@ public class PixelWrapper {
 
 	public String getName() {
 		return name;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 }

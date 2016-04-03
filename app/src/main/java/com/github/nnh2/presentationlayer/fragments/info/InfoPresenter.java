@@ -1,5 +1,6 @@
 package com.github.nnh2.presentationlayer.fragments.info;
 
+import com.github.nnh2.datalayer.entity.ImageProcessData;
 import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
 import com.github.nnh2.datalayer.eventbus.ImageProcessResponse;
 import com.github.nnh2.datalayer.eventbus.QueriesBus;
@@ -41,6 +42,10 @@ public class InfoPresenter extends BasePresenter<InfoView> {
 	protected void onViewDetached() {
 		sub.unsubscribe();
 		sub2.unsubscribe();
+	}
+
+	public void showImage(ImageProcessData fileName) {
+		bus.publish(QueriesBus.SHOW_IMAGE,fileName.getTitle());
 	}
 
 	public static class InfoSubscriber extends DefaultSubscriber<ImageInfoEvent>{

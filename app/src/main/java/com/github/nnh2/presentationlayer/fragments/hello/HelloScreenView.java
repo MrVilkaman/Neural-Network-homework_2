@@ -21,4 +21,6 @@ public interface HelloScreenView extends BaseView {
 	void setImage(Bitmap bm);
 
 	InputStream getAssetStreem();
+
+	void showImage(Bitmap path);
 }
