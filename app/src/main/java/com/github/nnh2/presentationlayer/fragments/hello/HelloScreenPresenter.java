@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
+import com.github.nnh2.datalayer.entity.BitmapWrapper;
 import com.github.nnh2.datalayer.eventbus.ImageContentEvent;
 import com.github.nnh2.datalayer.eventbus.QueriesBus;
 import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
@@ -57,15 +58,19 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 //				.observeOn(schedulers.mainThread())
 //				.doOnNext(bm -> view().setImage(bm))
 				.observeOn(schedulers.computation())
-				.map(filters::transform)
+				.map(bitmapWrapper -> {
+					bitmapWrapper.setBitmap(filters.transform(bitmapWrapper.getBitmap()));
+					return bitmapWrapper;
+				} )
 				.doOnNext(this::sendImageInfo)
 				.observeOn(schedulers.mainThread())
 				.doOnTerminate(() -> view().hideProgress())
-				.subscribe(bm -> view().setImage(bm));
+				.subscribe(bm -> view().setImage(bm.getBitmap()));
 
 	}
 
-	private void sendImageInfo(Bitmap bitmap) {
+	private void sendImageInfo(BitmapWrapper bitmapWrapper) {
+		Bitmap bitmap = bitmapWrapper.getBitmap();
 		int height = bitmap.getHeight();
 		int width = bitmap.getWidth();
 		int[] pixels = new int[height * width];
@@ -85,10 +90,10 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 		}
 
 		bus.publish(QueriesBus.IMAGE_INFO,new ImageInfoEvent(count,width,height));
-		bus.publish(QueriesBus.IMAGE_HANDLE,new ImageContentEvent(pixels,width,height));
+		bus.publish(QueriesBus.IMAGE_HANDLE,new ImageContentEvent(bitmapWrapper.getName(),pixels,width,height));
 	}
 
-	private Bitmap readImage(String path) {
+	private BitmapWrapper readImage(String path) {
 		if (path == null) {
 			return null;
 		}
@@ -96,14 +101,16 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		options.inMutable = true;
-		return BitmapFactory.decodeFile(path, options);
+		Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+		return new BitmapWrapper(bitmap,"123");
 	}
 
-	private Bitmap readImageFromAsset(InputStream streem) {
+	private BitmapWrapper readImageFromAsset(InputStream streem) {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		options.inMutable = true;
 		Bitmap bitmap = BitmapFactory.decodeStream(streem);
-		return bitmap.copy(bitmap.getConfig(),true);
+		Bitmap copy = bitmap.copy(bitmap.getConfig(), true);
+		return new BitmapWrapper(copy,"123");
 	}
 }

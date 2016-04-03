@@ -55,7 +55,7 @@ public class ImageProcesses {
 
 			float total = checks/full*100;
 
-			bus.publish(QueriesBus.IMAGE_HANDLE_RESPONSE,new ImageProcessResponse("0",total));
+			bus.publish(QueriesBus.IMAGE_HANDLE_RESPONSE,new ImageProcessResponse(imageContentEvent.getName(),total));
 		}
 	}
 }
