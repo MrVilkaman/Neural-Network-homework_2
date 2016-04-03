@@ -57,8 +57,7 @@ public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements I
 
 	@Override
 	public void setResponse(List<ImageProcessData> imageInfoEvent) {
-		Collections.sort(imageInfoEvent, (lhs, rhs) ->
-				lhs.getTotal() < rhs.getTotal() ? 1 : -1);
+		Collections.sort(imageInfoEvent, (lhs, rhs) -> lhs.getNewParam() < rhs.getNewParam() ? 1 : -1);
 		adapter.setItems(imageInfoEvent);
 	}
 

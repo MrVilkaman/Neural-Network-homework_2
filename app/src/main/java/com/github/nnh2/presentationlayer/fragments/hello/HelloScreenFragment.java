@@ -80,7 +80,7 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 		try {
 			String[] list = assets.list(Const.PATH);
 //			return assets.open("myimages/" + list[(int) (Math.random() * (list.length - 1))]);
-			return assets.open(Const.PATH + "/" + list[8]);
+			return assets.open(Const.PATH + "/" + list[6]);
 		} catch (IOException e) {
 			return null;
 		}

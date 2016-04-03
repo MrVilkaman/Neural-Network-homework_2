@@ -57,18 +57,32 @@ public class ImageProcesses {
 			for (PixelWrapper image : images) {
 				Values values = getChecks(image.getPixels(), pixels, height, width);
 				float total = values.black / full;
-				float total1 = values.white / (height * width - full) * 100;
+				float v = height * width ;
+				float total2 = values.white2; // v * 100;
 
-				total = Math.abs(1f - total);
-				total = 1 < total ? 1f : total;
-
-				total = 1f - total;
+				total = normalise(total);
 				total *= 100;
-				events.add(new ImageProcessData(image.getName(), total, total1));
+
+				float total1 = normalise(values.white / v);
+
+
+				ImageProcessData object = new ImageProcessData(image.getName(), total, total1, total2);
+
+				object.setNewParam(total - total1);
+
+				events.add(object);
 			}
 
 
 			bus.publish(QueriesBus.IMAGE_HANDLE_RESPONSE, new ImageProcessResponse(events));
+		}
+
+		private float normalise(float total) {
+			total = Math.abs(1f - total);
+			total = 1 < total ? 1f : total;
+
+			total = 1f - total;
+			return total;
 		}
 	}
 
@@ -84,11 +98,13 @@ public class ImageProcesses {
 				if (pixelImage == Color.BLACK) {
 					if (pixel == pixelImage) {
 						values.black++;
+					}else{
+						values.white++;
 					}
 				} else {
 //				if (pixelImage == Color.WHITE) {
 					if (pixel == Color.BLACK) {
-						values.white++;
+						values.white2++;
 					}
 				}
 
@@ -100,5 +116,6 @@ public class ImageProcesses {
 	public class Values {
 		public int black;
 		public int white;
+		public int white2;
 	}
 }
