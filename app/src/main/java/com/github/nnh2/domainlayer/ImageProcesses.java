@@ -48,9 +48,10 @@ public class ImageProcesses {
 			List<PixelWrapper> images =  imageStoreProvider.getImages();
 			List<ImageProcessData> events = new ArrayList<>();
 
+			float full = getChecks(pixels, pixels, height, width);
+
 			for (PixelWrapper image : images) {
 				int checks = getChecks(image.getPixels(), pixels, height, width);
-				float full = height * width;
 				float total = checks / full * 100;
 				events.add(new ImageProcessData(image.getName(), total));
 			}
