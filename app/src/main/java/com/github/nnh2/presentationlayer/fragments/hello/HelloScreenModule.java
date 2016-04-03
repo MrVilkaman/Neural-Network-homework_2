@@ -9,6 +9,8 @@ import com.github.nnh2.domainlayer.filters.ResizeFilter;
 import com.github.nnh2.domainlayer.filters.ScaleFilter;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 
+import net.jokubasdargis.rxbus.Bus;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -20,8 +22,8 @@ public class HelloScreenModule {
 
 	@Provides
 	@NonNull
-	HelloScreenPresenter provideHelloScreenPresenter(SchedulersProvider schedulers, Filters filters) {
-		return new HelloScreenPresenter(schedulers, filters);
+	HelloScreenPresenter provideHelloScreenPresenter(SchedulersProvider schedulers, Filters filters, Bus bus) {
+		return new HelloScreenPresenter(schedulers, filters,bus);
 	}
 
 

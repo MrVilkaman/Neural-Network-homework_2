@@ -1,12 +1,11 @@
 package com.github.nnh2.presentationlayer.fragments.info;
 
+import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
 import com.github.nnh2.datalayer.eventbus.QueriesBus;
-import com.github.nnh2.datalayer.eventbus.TrackingEvent;
 import com.github.nnh2.datalayer.providers.DefaultSubscriber;
 import com.github.nnh2.presentationlayer.fragments.core.BasePresenter;
 
 import net.jokubasdargis.rxbus.Bus;
-import net.jokubasdargis.rxbus.RxBus;
 
 import javax.inject.Inject;
 
@@ -37,7 +36,7 @@ public class InfoPresenter extends BasePresenter<InfoView> {
 		sub.unsubscribe();
 	}
 
-	public static class InfoSubscriber extends DefaultSubscriber<TrackingEvent>{
+	public static class InfoSubscriber extends DefaultSubscriber<ImageInfoEvent>{
 		private final InfoView view;
 
 		public InfoSubscriber(InfoView view) {
@@ -45,8 +44,8 @@ public class InfoPresenter extends BasePresenter<InfoView> {
 		}
 
 		@Override
-		public void onNext(TrackingEvent trackingEvent) {
-			view.setViewCount(trackingEvent.getCount());
+		public void onNext(ImageInfoEvent imageInfoEvent) {
+			view.setViewCount(imageInfoEvent);
 		}
 	}
 }

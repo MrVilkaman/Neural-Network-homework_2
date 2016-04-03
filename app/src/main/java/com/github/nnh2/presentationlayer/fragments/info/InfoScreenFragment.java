@@ -8,13 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mrvilkaman.namegenerator.R;
-import com.github.nnh2.datalayer.eventbus.QueriesBus;
+import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
-import com.github.nnh2.presentationlayer.fragments.info.InfoView;
-
-import net.jokubasdargis.rxbus.RxBus;
-
-import org.w3c.dom.Text;
 
 import butterknife.Bind;
 
@@ -45,8 +40,8 @@ public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements I
 	}
 
 	@Override
-	public void setViewCount(int count){
-		countView.setText(String.valueOf(count));
+	public void setViewCount(ImageInfoEvent event){
+		countView.setText(String.format("%s/%d", event.getCount(), event.getSize()));
 	}
 
 }
