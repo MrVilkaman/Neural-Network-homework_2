@@ -49,20 +49,16 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	protected void onCreateView(View view, Bundle savedInstanceState) {
 	}
 
-	@OnClick(R.id.open_photo_dialog)
-	void onClick() {
-		openPhotoDialog();
+	@OnClick(R.id.dialog_get_photo)
+	void openGallery() {
+		PhotoUtils.openGallery(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME);
 	}
 
-	private void openPhotoDialog() {
-
-		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
-		builder.positiveText(R.string.dialog_take_photo)
-				.negativeText(R.string.dialog_get_photo)
-				.onPositive((dialog, which) -> PhotoUtils.openCamera(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
-				.onNegative((dialog, which) -> PhotoUtils.openGallery(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
-				.show();
+	@OnClick(R.id.dialog_take_photo)
+	void openCamera() {
+		PhotoUtils.openCamera(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME);
 	}
+
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -80,8 +76,8 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 		AssetManager assets = getActivity().getAssets();
 		try {
 			String[] list = assets.list("myimages");
-			return assets.open("myimages/" + list[(int) (Math.random() * (list.length - 1))]);
-//			return assets.open(list[1]);
+//			return assets.open("myimages/" + list[(int) (Math.random() * (list.length - 1))]);
+			return assets.open("myimages/" +list[8]);
 		} catch (IOException e) {
 			return null;
 		}

@@ -35,7 +35,8 @@ public class HelloScreenModule {
 //				new MedianFilter(3)
 //				new ResizeFilter(90,120),
 				new ScaleFilter(level, 0.05f, 2, false),
-				new ResizeFilter(30, 40),
+//				new ResizeFilter(30, 40),
+				new ResizeFilter(60, 80),
 				new MonochromeFilter(level)
 		);
 	}

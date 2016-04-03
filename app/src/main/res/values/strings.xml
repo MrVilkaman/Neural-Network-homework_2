@@ -1,6 +1,5 @@
 <resources>
 	<string name="app_name">Лаба№ 1</string>
-	<string name="open_photo_dialog">Открыть</string>
 	<string name="dialog_take_photo">Камера</string>
 	<string name="dialog_get_photo">Галерея</string>
 

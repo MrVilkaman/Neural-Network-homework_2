@@ -61,7 +61,7 @@ public class ProvidersModule {
 
 		CombiFilter filtes = new CombiFilter(
 				new ScaleFilter(180, 0.05f, 2, false),
-				new ResizeFilter(30, 40),
+				new ResizeFilter(60, 80),
 				new MonochromeFilter(180)
 		);
 
