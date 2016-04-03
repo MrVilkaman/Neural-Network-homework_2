@@ -110,7 +110,11 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		options.inMutable = true;
 		Bitmap bitmap = BitmapFactory.decodeStream(streem);
-		Bitmap copy = bitmap.copy(bitmap.getConfig(), true);
-		return new BitmapWrapper(copy,"123");
+		if (bitmap != null) {
+			Bitmap copy = bitmap.copy(bitmap.getConfig(), true);
+			return new BitmapWrapper(copy, "123");
+		}else {
+			return null;
+		}
 	}
 }

@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mrvilkaman.namegenerator.R;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 import com.github.nnh2.presentationlayer.utils.PhotoUtils;
@@ -80,8 +79,8 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	public InputStream getAssetStreem() {
 		AssetManager assets = getActivity().getAssets();
 		try {
-			String[] list = assets.list("");
-			return assets.open(list[(int) (Math.random() * (list.length - 4))]);
+			String[] list = assets.list("myimages");
+			return assets.open("myimages/" + list[(int) (Math.random() * (list.length - 1))]);
 //			return assets.open(list[1]);
 		} catch (IOException e) {
 			return null;

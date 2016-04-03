@@ -7,6 +7,12 @@ import com.github.nnh2.datalayer.store.LocalStorage;
 import com.github.nnh2.datalayer.store.LocalStorageImpl;
 import com.github.nnh2.datalayer.store.MemoryStorage;
 import com.github.nnh2.datalayer.store.MemoryStorageImpl;
+import com.github.nnh2.domainlayer.filters.CombiFilter;
+import com.github.nnh2.domainlayer.filters.Filters;
+import com.github.nnh2.domainlayer.filters.MonochromeFilter;
+import com.github.nnh2.domainlayer.filters.ResizeFilter;
+import com.github.nnh2.domainlayer.filters.ScaleFilter;
+import com.github.nnh2.domainlayer.providers.ImageStoreProvider;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 import com.github.nnh2.domainlayer.providers.SessionDataProvider;
 
@@ -46,6 +52,20 @@ public class ProvidersModule {
 	@NonNull
 	MemoryStorage provideMemoryStorage() {
 		return new MemoryStorageImpl();
+	}
+
+	@Singleton
+	@Provides
+	@NonNull
+	ImageStoreProvider provideImageStoreProvider(Context context) {
+
+		CombiFilter filtes = new CombiFilter(
+				new ScaleFilter(180, 0.05f, 2, false),
+				new ResizeFilter(30, 40),
+				new MonochromeFilter(180)
+		);
+
+		return new ImageStoreProviderImpl(context,filtes);
 	}
 
 }

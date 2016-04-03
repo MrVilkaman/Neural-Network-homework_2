@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.github.nnh2.domainlayer.ImageProcesses;
+import com.github.nnh2.domainlayer.providers.ImageStoreProvider;
 import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 
 import net.jokubasdargis.rxbus.Bus;
@@ -33,8 +34,8 @@ public class AppModule {
 	}
 
 	@Provides @NonNull @Singleton
-	public ImageProcesses provideImageProcesses(Bus bus, SchedulersProvider schedular) {
-		return new ImageProcesses(bus,schedular);
+	public ImageProcesses provideImageProcesses(Bus bus, SchedulersProvider schedular, ImageStoreProvider imageStoreProvider) {
+		return new ImageProcesses(bus,schedular,imageStoreProvider);
 	}
 
 
