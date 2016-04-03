@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.github.mrvilkaman.namegenerator.R;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 import com.github.nnh2.presentationlayer.fragments.hello.HelloScreenFragment;
+import com.github.nnh2.presentationlayer.fragments.info.InfoScreenFragment;
 import com.github.nnh2.presentationlayer.utils.IToolbar;
 
 /**
@@ -39,7 +40,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private Fragment getRigthFragment() {
-		return HelloScreenFragment.open();
+		return InfoScreenFragment.open();
 	}
 
 	@Override

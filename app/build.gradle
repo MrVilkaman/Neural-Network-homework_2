@@ -68,6 +68,12 @@ dependencies {
     compile libraries.materialDialog
     compile libraries.materialProgress
 
+    compile 'net.jokubasdargis.rxbus:rxbus:1.1.2'
+
+// Optional
+    compile 'net.jokubasdargis.rxbus:rxbus-android:1.1.2'
+    compile 'net.jokubasdargis.rxbus:rxbus-dispatcher:1.1.2'
+
     //tests
     testCompile libraries.junit
     testCompile libraries.supportAnnotations

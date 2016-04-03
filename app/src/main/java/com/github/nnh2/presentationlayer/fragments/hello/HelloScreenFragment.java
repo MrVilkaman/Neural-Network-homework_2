@@ -14,11 +14,18 @@ import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mrvilkaman.namegenerator.R;
+import com.github.nnh2.datalayer.eventbus.QueriesBus;
+import com.github.nnh2.datalayer.eventbus.TrackingEvent;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 import com.github.nnh2.presentationlayer.utils.PhotoUtils;
 
+import net.jokubasdargis.rxbus.Bus;
+import net.jokubasdargis.rxbus.RxBus;
+
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -28,6 +35,8 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 
 	@Bind(R.id.image)
 	ImageView image;
+
+	@Inject Bus bus;
 
 	public static HelloScreenFragment open() {
 		return new HelloScreenFragment();
@@ -48,7 +57,6 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 
 	@Override
 	protected void onCreateView(View view, Bundle savedInstanceState) {
-
 	}
 
 	@OnClick(R.id.open_photo_dialog)
@@ -97,6 +105,7 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 
 	@Override
 	public void setImage(Bitmap bm) {
+		bus.publish(QueriesBus.TRACKING,new TrackingEvent(55));
 		image.setImageBitmap(bm);
 	}
 

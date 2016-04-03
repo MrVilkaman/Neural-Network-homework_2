@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SlidingPaneLayout
+<android.support.v4.widget.DrawerLayout
 	android:id="@+id/all_content"
 	android:layout_height="fill_parent"
 	android:layout_width="fill_parent"
@@ -7,25 +7,34 @@
 	xmlns:wheel="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 
+
 	<FrameLayout
-		android:id="@+id/content"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent">
+
+		<FrameLayout
+			android:id="@+id/content"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+		<com.pnikosis.materialishprogress.ProgressWheel
+			android:visibility="gone"
+			tools:visibility="visible"
+			android:background="#88000000"
+			android:id="@+id/progress_wheel"
+			android:gravity="center"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_centerHorizontal="true"
+			android:layout_centerVertical="true"
+			wheel:matProg_barColor="@color/app_background"
+			wheel:matProg_progressIndeterminate="true"/>
+	</FrameLayout>
+
 	<FrameLayout
 		android:layout_gravity="right"
+		android:gravity="right"
 		android:id="@+id/content_right"
-		android:layout_width="match_parent"
+		android:layout_width="wrap_content"
 		android:layout_height="match_parent" />
-	<com.pnikosis.materialishprogress.ProgressWheel
-		android:visibility="gone"
-		tools:visibility="visible"
-		android:background="#88000000"
-		android:id="@+id/progress_wheel"
-		android:gravity="center"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_centerHorizontal="true"
-		android:layout_centerVertical="true"
-		wheel:matProg_barColor="@color/app_background"
-		wheel:matProg_progressIndeterminate="true" />
-</android.support.v4.widget.SlidingPaneLayout>
+</android.support.v4.widget.DrawerLayout>
