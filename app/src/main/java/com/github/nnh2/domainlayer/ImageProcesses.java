@@ -65,10 +65,13 @@ public class ImageProcesses {
 
 				float total1 = normalise(values.white / v);
 
+				total1 *= 100;
 
 				ImageProcessData object = new ImageProcessData(image.getName(), total, total1, total2);
 
-				object.setNewParam(total - total1);
+				object.setNewParam(total*.75f - (1f - total1)*.25f);
+//				object.setNewParam(total - total1);
+//				object.setNewParam((total + 1f-total1));
 
 				events.add(object);
 			}

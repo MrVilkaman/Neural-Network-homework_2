@@ -78,9 +78,9 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	public InputStream getAssetStreem() {
 		AssetManager assets = getActivity().getAssets();
 		try {
-			String[] list = assets.list(Const.PATH);
+//			String[] list = assets.list(Const.PATH);
 //			return assets.open("myimages/" + list[(int) (Math.random() * (list.length - 1))]);
-			return assets.open(Const.PATH + "/" + list[6]);
+			return assets.open(Const.PATH + "2/6.png");
 		} catch (IOException e) {
 			return null;
 		}
