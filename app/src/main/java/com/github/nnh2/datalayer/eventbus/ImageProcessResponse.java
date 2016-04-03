@@ -1,22 +1,22 @@
 package com.github.nnh2.datalayer.eventbus;
 
+import com.github.nnh2.datalayer.entity.ImageProcessData;
+
+import java.util.List;
+
 /**
  * Created by Zahar on 03.04.16.
  */
 public class ImageProcessResponse {
-	private final float total;
-	private final String title;
 
-	public ImageProcessResponse(String title, float total) {
-		this.title = title;
-		this.total = total;
+	private List<ImageProcessData> datas;
+
+	public ImageProcessResponse(List<ImageProcessData> datas) {
+		this.datas = datas;
 	}
 
-	public float getTotal() {
-		return total;
+	public List<ImageProcessData> getDatas() {
+		return datas;
 	}
 
-	public String getTitle() {
-		return title;
-	}
 }

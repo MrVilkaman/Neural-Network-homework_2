@@ -65,7 +65,7 @@ public class InfoPresenter extends BasePresenter<InfoView> {
 
 		@Override
 		public void onNext(ImageProcessResponse imageInfoEvent) {
-			view.setResponse(imageInfoEvent);
+			view.setResponse(imageInfoEvent.getDatas());
 		}
 	}
 }

@@ -4,22 +4,28 @@ package com.github.nnh2.presentationlayer.fragments.info;
  */
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.mrvilkaman.namegenerator.R;
+import com.github.nnh2.datalayer.entity.ImageProcessData;
 import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
-import com.github.nnh2.datalayer.eventbus.ImageProcessResponse;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
+
+import java.util.List;
 
 import butterknife.Bind;
 
 public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements InfoView {
 
-	@Bind(R.id.info_count)
+//	@Bind(R.id.info_count)
 	TextView countView;
-	@Bind(R.id.info_count_2)
-	TextView countView2;
+	@Bind(R.id.list)
+	RecyclerView recyclerView;
+	private InfoAdapter adapter;
 
 	public static InfoScreenFragment open() {
 		return new InfoScreenFragment();
@@ -32,6 +38,7 @@ public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements I
 
 	@Override
 	protected void onCreateView(View view, Bundle savedInstanceState) {
+		setupRecyclerView();
 	}
 
 	@Override
@@ -48,8 +55,18 @@ public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements I
 	}
 
 	@Override
-	public void setResponse(ImageProcessResponse imageInfoEvent) {
-		countView2.setText(String.format("%s - %.1f%%", imageInfoEvent.getTitle(), imageInfoEvent.getTotal()));
+	public void setResponse(List<ImageProcessData> imageInfoEvent) {
+		adapter.setItems(imageInfoEvent);
+	}
 
+	private void setupRecyclerView() {
+		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+		recyclerView.setItemAnimator(new DefaultItemAnimator());
+		recyclerView.setHasFixedSize(true);
+		if (adapter == null) {
+			adapter = new InfoAdapter();
+		}
+//		adapter.setOnClick(this::openFriend);
+		recyclerView.setAdapter(adapter);
 	}
 }

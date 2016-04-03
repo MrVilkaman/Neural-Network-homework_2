@@ -2,6 +2,7 @@ package com.github.nnh2.domainlayer;
 
 import android.graphics.Color;
 
+import com.github.nnh2.datalayer.entity.ImageProcessData;
 import com.github.nnh2.datalayer.entity.PixelWrapper;
 import com.github.nnh2.datalayer.eventbus.ImageContentEvent;
 import com.github.nnh2.datalayer.eventbus.ImageProcessResponse;
@@ -12,6 +13,7 @@ import com.github.nnh2.domainlayer.providers.SchedulersProvider;
 
 import net.jokubasdargis.rxbus.Bus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,17 +46,17 @@ public class ImageProcesses {
 
 
 			List<PixelWrapper> images =  imageStoreProvider.getImages();
+			List<ImageProcessData> events = new ArrayList<>();
 
-			ImageProcessResponse event = null;
-			for (PixelWrapper image : images.subList(0, 1)) {
+			for (PixelWrapper image : images) {
 				int checks = getChecks(image.getPixels(), pixels, height, width);
 				float full = height * width;
 				float total = checks / full * 100;
-				event = new ImageProcessResponse(image.getName(), total);
+				events.add(new ImageProcessData(image.getName(), total));
 			}
 
 
-			bus.publish(QueriesBus.IMAGE_HANDLE_RESPONSE, event);
+			bus.publish(QueriesBus.IMAGE_HANDLE_RESPONSE, new ImageProcessResponse(events));
 		}
 	}
 

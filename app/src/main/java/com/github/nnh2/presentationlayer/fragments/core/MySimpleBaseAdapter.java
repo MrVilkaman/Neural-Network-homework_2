@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Zahar on 17.01.2016.
  */
-public abstract class MySimpleBaseAdapter<T,VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class MySimpleBaseAdapter<T,VH extends AdapterViewHolder<T>> extends RecyclerView.Adapter<VH> {
 
 	protected OnClickListener<T> onClick;
 
@@ -34,6 +34,7 @@ public abstract class MySimpleBaseAdapter<T,VH extends RecyclerView.ViewHolder> 
 	@Override
 	public void onBindViewHolder(VH holder, int position) {
 		holder.itemView.setTag(position);
+		holder.bind(getItem(position));
 	}
 
 	public T getItem(int pos){
