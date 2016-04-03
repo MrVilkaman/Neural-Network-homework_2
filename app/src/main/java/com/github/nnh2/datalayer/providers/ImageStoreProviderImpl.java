@@ -5,7 +5,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.github.nnh2.datalayer.entity.BitmapWrapper;
+import com.github.nnh2.datalayer.Const;
 import com.github.nnh2.datalayer.entity.PixelWrapper;
 import com.github.nnh2.domainlayer.filters.Filters;
 import com.github.nnh2.domainlayer.providers.ImageStoreProvider;
@@ -43,9 +43,9 @@ public class ImageStoreProviderImpl implements ImageStoreProvider {
 
 		AssetManager assets = context.getAssets();
 		try {
-			String[] list = assets.list("myimages");
+			String[] list = assets.list(Const.PATH);
 			for (String path : list) {
-				Bitmap bitmap = filters.transform(readImageFromAsset(assets.open("myimages/"+path)));
+				Bitmap bitmap = filters.transform(readImageFromAsset(assets.open(Const.PATH + "/" + path)));
 
 				int height = bitmap.getHeight();
 				int width = bitmap.getWidth();
@@ -53,9 +53,9 @@ public class ImageStoreProviderImpl implements ImageStoreProvider {
 
 				bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
 
-				String filename = path.substring(path.lastIndexOf("/")+1);
+				String filename = path.substring(path.lastIndexOf("/") + 1);
 
-				pixelWrappers.add(new PixelWrapper(pixels,filename));
+				pixelWrappers.add(new PixelWrapper(pixels, filename));
 			}
 
 		} catch (IOException e) {

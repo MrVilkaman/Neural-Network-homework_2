@@ -11,8 +11,8 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mrvilkaman.namegenerator.R;
+import com.github.nnh2.datalayer.Const;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 import com.github.nnh2.presentationlayer.utils.PhotoUtils;
 
@@ -75,9 +75,9 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	public InputStream getAssetStreem() {
 		AssetManager assets = getActivity().getAssets();
 		try {
-			String[] list = assets.list("myimages");
+			String[] list = assets.list(Const.PATH);
 //			return assets.open("myimages/" + list[(int) (Math.random() * (list.length - 1))]);
-			return assets.open("myimages/" +list[8]);
+			return assets.open(Const.PATH + "/" + list[8]);
 		} catch (IOException e) {
 			return null;
 		}
@@ -86,7 +86,7 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	@NonNull
 	@Override
 	public String getLastPath() {
-			return PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
+		return PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
 //		return null;
 	}
 
