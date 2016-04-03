@@ -69,9 +69,9 @@ public class ImageProcesses {
 
 				ImageProcessData object = new ImageProcessData(image.getName(), total, total1, total2);
 
-				object.setNewParam(total*.75f - (1f - total1)*.25f);
+				object.setNewParam(total*.65f + (100f - total1)*.35f);
 //				object.setNewParam(total - total1);
-//				object.setNewParam((total + 1f-total1));
+//				object.setNewParam((total + 100f-total1));
 
 				events.add(object);
 			}

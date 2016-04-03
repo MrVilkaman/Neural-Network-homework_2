@@ -3,6 +3,7 @@ package com.github.nnh2.datalayer.providers;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.github.nnh2.datalayer.Const;
 import com.github.nnh2.datalayer.store.LocalStorage;
 import com.github.nnh2.datalayer.store.LocalStorageImpl;
 import com.github.nnh2.datalayer.store.MemoryStorage;
@@ -27,6 +28,7 @@ import dagger.Provides;
 @Module
 @Singleton
 public class ProvidersModule {
+
 
 	@Singleton
 	@Provides
@@ -61,7 +63,7 @@ public class ProvidersModule {
 
 		CombiFilter filtes = new CombiFilter(
 				new ScaleFilter(180, 0.05f, 2, false),
-				new ResizeFilter(60, 80),
+				new ResizeFilter(Const.WIDTH, Const.HEIGHT),
 				new MonochromeFilter(180)
 		);
 

@@ -2,6 +2,7 @@ package com.github.nnh2.presentationlayer.fragments.hello;
 
 import android.support.annotation.NonNull;
 
+import com.github.nnh2.datalayer.Const;
 import com.github.nnh2.domainlayer.filters.CombiFilter;
 import com.github.nnh2.domainlayer.filters.Filters;
 import com.github.nnh2.domainlayer.filters.MonochromeFilter;
@@ -31,13 +32,13 @@ public class HelloScreenModule {
 	@Provides
 	@NonNull
 	Filters provideFilters() {
-		int level = 100;
+		int level = 90;
 		return new CombiFilter(
 //				new MedianFilter(3)
 //				new ResizeFilter(90,120),
 				new ScaleFilter(level, 0.05f, 2, false),
-//				new ResizeFilter(30, 40),
-				new ResizeFilter(60, 80),
+				new ResizeFilter(Const.WIDTH, Const.HEIGHT),
+//				new ResizeFilter(60, 80),
 				new MonochromeFilter(level)
 		);
 	}

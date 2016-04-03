@@ -5,7 +5,11 @@ package com.github.nnh2.datalayer;
  */
 public class Const {
 
-//	public static final String PATH = "myimages";
-	public static final String PATH = "myimages2";
+	public static final String PATH = "myimages";
+//	public static final String PATH = "myimages2";
+
+
+	public static final int WIDTH = 30;
+	public static final int HEIGHT = 40;
 
 }

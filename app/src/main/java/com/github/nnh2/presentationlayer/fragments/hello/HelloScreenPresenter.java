@@ -76,7 +76,8 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 				.doOnNext(this::sendImageInfo)
 				.observeOn(schedulers.mainThread())
 				.doOnTerminate(() -> view().hideProgress())
-				.subscribe(bm -> view().setImage(bm));
+				.subscribe(bm -> view().setImage(bm),
+						throwable -> view().showMessage(throwable.getMessage()));
 
 	}
 
