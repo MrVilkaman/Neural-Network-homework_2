@@ -38,7 +38,7 @@ public class ScaleFilter implements Filters {
 			int height2 = endPoints.bottom - endPoints.top;
 			return Bitmap.createBitmap(bitmap, endPoints.left, endPoints.top, width2, height2);
 		}
-	}
+	}//x + width must be <= bitmap.width()
 
 	protected EndPoints doWork(int[] pixels, int width, int height) {
 		int[] pixelsNew = pixels.clone();
@@ -153,15 +153,15 @@ public class ScaleFilter implements Filters {
 		public void handle(int width, int height, int delta, float deltaPersent) {
 			float del = Math.max(deltaPersent * height, delta);
 			float v0 = top - del;
-			top += 0 < v0 ? -del : Math.abs(v0);
+			top = 0 < v0 ? (int) (top - del) : 0;
 			float v1 = bottom + del;
-			bottom += (v1 < height) ? del : Math.abs(v1);
+			bottom = (v1 < height) ? (int) (bottom + del) : height;
 
 			del = Math.max(deltaPersent * width, delta);
 			float v = left - del;
-			left += 0 < v ? -del : Math.abs(v1);
+			left = 0 < v ? (int) (left - del) : 0;
 			float v2 = right + del;
-			right += (v2 < width) ? del : Math.abs(v2);
+			right = (v2 < width) ? (int) (right + del) : width;
 		}
 
 

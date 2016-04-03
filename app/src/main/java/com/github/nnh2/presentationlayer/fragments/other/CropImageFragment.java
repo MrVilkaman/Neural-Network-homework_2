@@ -5,13 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.TextView;
 
 import com.github.mrvilkaman.namegenerator.R;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
-import com.github.nnh2.presentationlayer.utils.IToolbar;
 import com.github.nnh2.presentationlayer.utils.PhotoUtils;
 import com.isseiaoki.simplecropview.CropImageView;
 import com.squareup.picasso.Callback;
@@ -24,9 +21,9 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-public class CropImageFragment extends BaseFragment<CropImagePresenter>  implements CropImageScreenView {
+public class CropImageFragment extends BaseFragment<CropImagePresenter> implements CropImageScreenView {
 
-	public enum MODE{
+	public enum MODE {
 		FREE,
 		SQUARE,
 		PREVIEW
@@ -42,12 +39,12 @@ public class CropImageFragment extends BaseFragment<CropImagePresenter>  impleme
 
 	public static CropImageFragment newInstance(Fragment target, String imageFile, String resultFile, MODE mode) {
 		Bundle args = new Bundle();
-		args.putString(EXTRA_INPUT,imageFile);
-		args.putString(EXTRA_OUTPUT,resultFile);
+		args.putString(EXTRA_INPUT, imageFile);
+		args.putString(EXTRA_OUTPUT, resultFile);
 		args.putString(EXTRA_AS_SQUARE, mode.name());
 		CropImageFragment fragment = new CropImageFragment();
 		fragment.setArguments(args);
-		fragment.setTargetFragment(target,PhotoUtils.CROP_PHOTO_REQUEST_CODE);
+		fragment.setTargetFragment(target, PhotoUtils.CROP_PHOTO_REQUEST_CODE);
 		return fragment;
 	}
 
@@ -111,7 +108,7 @@ public class CropImageFragment extends BaseFragment<CropImagePresenter>  impleme
 		Picasso.with(getContext())
 				.load(uri)
 //				.transform(new Resize())
-				.memoryPolicy(MemoryPolicy.NO_CACHE,MemoryPolicy.NO_STORE)
+				.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 				.into(cropImageView, new Callback() {
 					@Override
 					public void onSuccess() {
@@ -136,7 +133,7 @@ public class CropImageFragment extends BaseFragment<CropImagePresenter>  impleme
 		Fragment targetFragment = getTargetFragment();
 		int targetRequestCode = getTargetRequestCode();
 		if (targetFragment != null) {
-			setTargetFragment(null,0);
+			setTargetFragment(null, 0);
 			targetFragment.onActivityResult(targetRequestCode, Activity.RESULT_CANCELED, null);
 		}
 
@@ -166,14 +163,14 @@ public class CropImageFragment extends BaseFragment<CropImagePresenter>  impleme
 		Fragment targetFragment = getTargetFragment();
 		int targetRequestCode = getTargetRequestCode();
 		if (targetFragment != null) {
-			setTargetFragment(null,0);
+			setTargetFragment(null, 0);
 			back();
 			targetFragment.onActivityResult(targetRequestCode, Activity.RESULT_OK, null);
 		}
 	}
 
 	@OnClick(R.id.ready)
-	void onClick(){
+	void onClick() {
 		getPresenter().savePhoto();
 	}
 

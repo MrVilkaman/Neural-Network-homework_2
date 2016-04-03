@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -49,8 +50,12 @@ public class PixelArtImageView extends ImageView {
 		}
 
 
-		int dwidth = (int) (getDrawable().getIntrinsicWidth() * floats[0]);
-		int dheight = (int) (getDrawable().getIntrinsicHeight() * floats[0]);
+		Drawable drawable = getDrawable();
+		if (drawable == null) {
+			return;
+		}
+		int dwidth = (int) (drawable.getIntrinsicWidth() * floats[0]);
+		int dheight = (int) (drawable.getIntrinsicHeight() * floats[0]);
 
 
 		float startX = floats[2] + getPaddingLeft();

@@ -30,12 +30,13 @@ public class HelloScreenModule {
 	@Provides
 	@NonNull
 	Filters provideFilters() {
+		int level = 100;
 		return new CombiFilter(
 //				new MedianFilter(3)
 //				new ResizeFilter(90,120),
-				new ScaleFilter(180, 0.05f, 2, false),
+				new ScaleFilter(level, 0.05f, 2, false),
 				new ResizeFilter(30, 40),
-				new MonochromeFilter(180)
+				new MonochromeFilter(level)
 		);
 	}
 }

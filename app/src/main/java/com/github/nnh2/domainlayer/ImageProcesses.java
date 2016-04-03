@@ -40,6 +40,10 @@ public class ImageProcesses {
 
 		@Override
 		public void onNext(ImageContentEvent imageContentEvent) {
+			if(imageContentEvent.hasError()){
+				return;
+			}
+
 			int[] pixels = imageContentEvent.getPixels();
 			int height = imageContentEvent.getHeight();
 			int width = imageContentEvent.getWidth();

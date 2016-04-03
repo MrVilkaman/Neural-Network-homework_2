@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mrvilkaman.namegenerator.R;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 import com.github.nnh2.presentationlayer.utils.PhotoUtils;
@@ -54,14 +55,13 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	}
 
 	private void openPhotoDialog() {
-		getPresenter().newPhotoTaken();
 
-//		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
-//		builder.positiveText(R.string.dialog_take_photo)
-//				.negativeText(R.string.dialog_get_photo)
-//				.onPositive((dialog, which) -> PhotoUtils.openCamera(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
-//				.onNegative((dialog, which) -> PhotoUtils.openGallery(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
-//				.show();
+		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
+		builder.positiveText(R.string.dialog_take_photo)
+				.negativeText(R.string.dialog_get_photo)
+				.onPositive((dialog, which) -> PhotoUtils.openCamera(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
+				.onNegative((dialog, which) -> PhotoUtils.openGallery(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
+				.show();
 	}
 
 	@Override
@@ -90,8 +90,8 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	@NonNull
 	@Override
 	public String getLastPath() {
-//			return PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
-		return null;
+			return PhotoUtils.getPathToTempFiles(getActivity()) + PhotoUtils.AVATAR_FILE_NAME;
+//		return null;
 	}
 
 	@Override

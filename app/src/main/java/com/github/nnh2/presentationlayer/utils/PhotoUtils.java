@@ -27,131 +27,133 @@ import java.nio.channels.FileChannel;
 
 public class PhotoUtils {
 
-    public static final int SELECT_PICTURE_REQUEST_CODE = 9000;
-    public static final int TAKE_PHOTO_REQUEST_CODE = 9001;
-    public static final int CROP_PHOTO_REQUEST_CODE = 9002;
-    public static final int CROP_ERROR = 404;
+	public static final int SELECT_PICTURE_REQUEST_CODE = 9000;
+	public static final int TAKE_PHOTO_REQUEST_CODE = 9001;
+	public static final int CROP_PHOTO_REQUEST_CODE = 9002;
+	public static final int CROP_ERROR = 404;
 
 
-    public static final String IMAGE_TEMP_FILE_NAME = "cameraTemp.jpg";
-    public static final String IMAGE_TEMP = "photos";
+	public static final String IMAGE_TEMP_FILE_NAME = "cameraTemp.jpg";
+	public static final String IMAGE_TEMP = "photos";
 
 	private static final String TAG = "PhotoUtils";
 	public static final String AVATAR_FILE_NAME = "temp";
 
 	private static String lastFileName = "";
 
-    private static CropImageFragment.MODE mode = CropImageFragment.MODE.FREE ;
+	private static CropImageFragment.MODE mode = CropImageFragment.MODE.FREE;
 
-    private PhotoUtils() {
-    }
+	private PhotoUtils() {
+	}
 
-    public static String getLastFileName() {
-        return lastFileName;
-    }
+	public static String getLastFileName() {
+		return lastFileName;
+	}
 
-    public static void openGallery(Fragment fragment, String fileName) {
-        System.gc();
+	public static void openGallery(Fragment fragment, String fileName) {
+		System.gc();
 		File dir = new File(getPathToTempFiles(fragment.getActivity()));
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
 
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        lastFileName = fileName;
-        intent.setType("image/*");
-        fragment.startActivityForResult(intent, SELECT_PICTURE_REQUEST_CODE);
-    }
+		Intent intent = new Intent(Intent.ACTION_PICK);
+		lastFileName = fileName;
+		intent.setType("image/*");
+		fragment.startActivityForResult(intent, SELECT_PICTURE_REQUEST_CODE);
+	}
 
-    public static void openCamera(Fragment frag, String fileName) {
-        System.gc();
-        File dir = new File(getPathToTempFiles(frag.getActivity()));
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        lastFileName = fileName;
-        String imageFilePath = dir + File.separator + IMAGE_TEMP_FILE_NAME;
-        File originalFile = new File(imageFilePath);
-        Uri imageFileUri = Uri.fromFile(originalFile);
+	public static void openCamera(Fragment frag, String fileName) {
+		System.gc();
+		File dir = new File(getPathToTempFiles(frag.getActivity()));
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		lastFileName = fileName;
+		String imageFilePath = dir + File.separator + IMAGE_TEMP_FILE_NAME;
+		File originalFile = new File(imageFilePath);
+		Uri imageFileUri = Uri.fromFile(originalFile);
 
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
-        frag.startActivityForResult(cameraIntent, TAKE_PHOTO_REQUEST_CODE);
-    }
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		frag.startActivityForResult(cameraIntent, TAKE_PHOTO_REQUEST_CODE);
+	}
 
-    public static String getPathToTempFiles(Context context) {
-        return StorageUtils.getStoragePath(context) + File.separator + IMAGE_TEMP + File.separator;
-    }
+	public static String getPathToTempFiles(Context context) {
+		return StorageUtils.getStoragePath(context) + File.separator + IMAGE_TEMP + File.separator;
+	}
 
-    public static void onActivityResult(BaseFragment fragment, int requestCode, int resultCode, Intent data) {
+	public static void onActivityResult(BaseFragment fragment, int requestCode, int resultCode, Intent data) {
 		if (resultCode != Activity.RESULT_OK) {
 			return;
 		}
 		Context context = fragment.getActivity();
 		if (requestCode == SELECT_PICTURE_REQUEST_CODE) {
-            final Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = fragment.getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String filePath = cursor.getString(columnIndex);
-                    showCrop(fragment, filePath, PhotoUtils.getPathToTempFiles(context) + lastFileName, mode);
-                }
-                cursor.close();
-            }
+			final Uri selectedImage = data.getData();
+			String[] filePathColumn = {MediaStore.Images.Media.DATA};
+			Cursor cursor = fragment.getActivity()
+					.getContentResolver()
+					.query(selectedImage, filePathColumn, null, null, null);
+			if (cursor != null) {
+				if (cursor.moveToFirst()) {
+					int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+					String filePath = cursor.getString(columnIndex);
+					showCrop(fragment, filePath, PhotoUtils.getPathToTempFiles(context) + lastFileName, mode);
+				}
+				cursor.close();
+			}
 
-        } else if (requestCode == PhotoUtils.TAKE_PHOTO_REQUEST_CODE) {
+		} else if (requestCode == PhotoUtils.TAKE_PHOTO_REQUEST_CODE) {
 			String path = PhotoUtils.getPathToTempFiles(context) + PhotoUtils.IMAGE_TEMP_FILE_NAME;
-            showCrop(fragment, path, PhotoUtils.getPathToTempFiles(context) + lastFileName, mode);
-        } else if (requestCode == PhotoUtils.CROP_PHOTO_REQUEST_CODE) {
-            clear(context, IMAGE_TEMP_FILE_NAME);
-        }
-    }
+			showCrop(fragment, path, PhotoUtils.getPathToTempFiles(context) + lastFileName, mode);
+		} else if (requestCode == PhotoUtils.CROP_PHOTO_REQUEST_CODE) {
+			clear(context, IMAGE_TEMP_FILE_NAME);
+		}
+	}
 
 
-    private static void showCrop(final BaseFragment fragment, final String path, String pathTo, CropImageFragment.MODE mode) {
-        File from = new File(path);
-        File to = new File(pathTo);
-        try {
-            PhotoUtils.copy(from, to);
-        } catch (IOException e) {
-            Log.d(TAG,"copy file error", e);
-        }
+	private static void showCrop(final BaseFragment fragment, final String path, String pathTo, CropImageFragment.MODE mode) {
+		File from = new File(path);
+		File to = new File(pathTo);
+		try {
+			PhotoUtils.copy(from, to);
+		} catch (IOException e) {
+			Log.d(TAG, "copy file error", e);
+		}
 
-        fragment.showFragment(CropImageFragment.newInstance(fragment, from.getAbsolutePath(), to.getAbsolutePath(), mode));
-    }
+		fragment.showFragment(CropImageFragment.newInstance(fragment, from.getAbsolutePath(), to.getAbsolutePath(), mode));
+	}
 
-    public static void clear(Context context, String avatarFileName) {
-        File file = new File(getPathToTempFiles(context), avatarFileName);
-        file.delete();
-    }
+	public static void clear(Context context, String avatarFileName) {
+		File file = new File(getPathToTempFiles(context), avatarFileName);
+		file.delete();
+	}
 
-    public static void setMode(final CropImageFragment.MODE mode) {
-        PhotoUtils.mode = mode;
-    }
+	public static void setMode(final CropImageFragment.MODE mode) {
+		PhotoUtils.mode = mode;
+	}
 
-    public static void saveToFile(Bitmap bmp, File filename, Bitmap.CompressFormat format) {
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(filename);
-            bmp.compress(format, 90, out); // bmp is your Bitmap instance
-        } catch (Exception e) {
-            Log.d(TAG,"saveToFile error", e);
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-				Log.d(TAG,"saveToFile error", e);
-            }
-        }
-    }
+	public static void saveToFile(Bitmap bmp, File filename, Bitmap.CompressFormat format) {
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(filename);
+			bmp.compress(format, 90, out); // bmp is your Bitmap instance
+		} catch (Exception e) {
+			Log.d(TAG, "saveToFile error", e);
+		} finally {
+			try {
+				if (out != null) {
+					out.close();
+				}
+			} catch (IOException e) {
+				Log.d(TAG, "saveToFile error", e);
+			}
+		}
+	}
 
-    public static void createPreviewCrop(BaseFragment fragment, final String inputPath, final String outputPath) {
-        showCrop(fragment,inputPath,outputPath, CropImageFragment.MODE.PREVIEW);
-    }
+	public static void createPreviewCrop(BaseFragment fragment, final String inputPath, final String outputPath) {
+		showCrop(fragment, inputPath, outputPath, CropImageFragment.MODE.PREVIEW);
+	}
 
 	public static void normalizeImageForUri(Context context, Uri uri) {
 		try {
@@ -204,8 +206,7 @@ public class PhotoUtils {
 			bitmap.recycle();
 
 			return bmRotated;
-		}
-		catch (OutOfMemoryError e) {
+		} catch (OutOfMemoryError e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -215,12 +216,13 @@ public class PhotoUtils {
 		if (saveUri != null) {
 			OutputStream outputStream = null;
 			try {
-				outputStream = context.getContentResolver().openOutputStream(saveUri);
+				outputStream = context.getContentResolver()
+						.openOutputStream(saveUri);
 				if (outputStream != null) {
 					croppedImage.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
 				}
 			} catch (IOException e) {
-				Log.e(TAG,"Cannot open file: " + saveUri.toString()+" | "+ e.getMessage());
+				Log.e(TAG, "Cannot open file: " + saveUri.toString() + " | " + e.getMessage());
 			} finally {
 				closeSilently(outputStream);
 				croppedImage.recycle();

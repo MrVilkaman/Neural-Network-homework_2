@@ -51,7 +51,7 @@ public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements I
 
 	@Override
 	public void setViewCount(ImageInfoEvent event){
-		countView.setText(String.format("%s/%d", event.getCount(), event.getSize()));
+//		countView.setText(String.format("%s/%d", event.getCount(), event.getSize()));
 	}
 
 	@Override

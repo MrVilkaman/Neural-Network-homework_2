@@ -32,4 +32,8 @@ public class ImageContentEvent {
 	public String getName() {
 		return name;
 	}
+
+	public boolean hasError() {
+		return false;
+	}
 }

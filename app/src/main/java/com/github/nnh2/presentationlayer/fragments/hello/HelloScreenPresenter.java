@@ -58,6 +58,7 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 //				.observeOn(schedulers.mainThread())
 //				.doOnNext(bm -> view().setImage(bm))
 				.observeOn(schedulers.computation())
+				.first(bitmapWrapper -> bitmapWrapper.getBitmap() != null)
 				.map(bitmapWrapper -> {
 					bitmapWrapper.setBitmap(filters.transform(bitmapWrapper.getBitmap()));
 					return bitmapWrapper;
