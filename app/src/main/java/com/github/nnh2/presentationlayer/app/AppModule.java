@@ -3,6 +3,11 @@ package com.github.nnh2.presentationlayer.app;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.github.nnh2.domainlayer.ImageProcesses;
+import com.github.nnh2.domainlayer.providers.SchedulersProvider;
+
+import net.jokubasdargis.rxbus.Bus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -26,5 +31,12 @@ public class AppModule {
 	public Context provideContext() {
 		return context;
 	}
+
+	@Provides @NonNull @Singleton
+	public ImageProcesses provideImageProcesses(Bus bus, SchedulersProvider schedular) {
+		return new ImageProcesses(bus,schedular);
+	}
+
+
 
 }

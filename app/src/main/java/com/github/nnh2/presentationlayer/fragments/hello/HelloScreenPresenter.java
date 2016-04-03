@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
+import com.github.nnh2.datalayer.eventbus.ImageContentEvent;
 import com.github.nnh2.datalayer.eventbus.QueriesBus;
 import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
 import com.github.nnh2.domainlayer.filters.Filters;
@@ -83,7 +84,8 @@ public class HelloScreenPresenter extends BasePresenter<HelloScreenView> {
 			}
 		}
 
-		bus.publish(QueriesBus.TRACKING,new ImageInfoEvent(count,width,height));
+		bus.publish(QueriesBus.IMAGE_INFO,new ImageInfoEvent(count,width,height));
+		bus.publish(QueriesBus.IMAGE_HANDLE,new ImageContentEvent(pixels,width,height));
 	}
 
 	private Bitmap readImage(String path) {

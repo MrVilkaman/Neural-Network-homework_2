@@ -1,6 +1,7 @@
 package com.github.nnh2.presentationlayer.fragments.info;
 
 import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
+import com.github.nnh2.datalayer.eventbus.ImageProcessResponse;
 import com.github.nnh2.presentationlayer.fragments.core.BaseView;
 
 /**
@@ -10,4 +11,6 @@ import com.github.nnh2.presentationlayer.fragments.core.BaseView;
 public interface InfoView extends BaseView {
 
 	void setViewCount(ImageInfoEvent count);
+
+	void setResponse(ImageProcessResponse imageInfoEvent);
 }
