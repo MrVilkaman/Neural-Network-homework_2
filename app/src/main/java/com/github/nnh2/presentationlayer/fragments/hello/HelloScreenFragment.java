@@ -55,12 +55,14 @@ public class HelloScreenFragment extends BaseFragment<HelloScreenPresenter> impl
 	}
 
 	private void openPhotoDialog() {
-		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
-		builder.positiveText(R.string.dialog_take_photo)
-				.negativeText(R.string.dialog_get_photo)
-				.onPositive((dialog, which) -> PhotoUtils.openCamera(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
-				.onNegative((dialog, which) -> PhotoUtils.openGallery(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
-				.show();
+		getPresenter().newPhotoTaken();
+
+//		MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
+//		builder.positiveText(R.string.dialog_take_photo)
+//				.negativeText(R.string.dialog_get_photo)
+//				.onPositive((dialog, which) -> PhotoUtils.openCamera(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
+//				.onNegative((dialog, which) -> PhotoUtils.openGallery(HelloScreenFragment.this, PhotoUtils.AVATAR_FILE_NAME))
+//				.show();
 	}
 
 	@Override

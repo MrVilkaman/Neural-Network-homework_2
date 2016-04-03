@@ -2,6 +2,8 @@ package com.github.nnh2.presentationlayer.fragments.info;
 
 import android.support.annotation.NonNull;
 
+import com.github.nnh2.domainlayer.providers.SchedulersProvider;
+
 import net.jokubasdargis.rxbus.Bus;
 
 import dagger.Module;
@@ -15,7 +17,7 @@ public class InfoScreenModule {
 
 	@Provides
 	@NonNull
-	InfoPresenter provideInfoPresenter(Bus bus) {
-		return new InfoPresenter(bus);
+	InfoPresenter provideInfoPresenter(SchedulersProvider schedulersProvider,Bus bus) {
+		return new InfoPresenter(schedulersProvider,bus);
 	}
 }
