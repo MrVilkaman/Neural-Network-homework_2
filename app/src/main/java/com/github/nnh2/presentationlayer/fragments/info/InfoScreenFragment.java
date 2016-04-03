@@ -15,13 +15,14 @@ import com.github.nnh2.datalayer.entity.ImageProcessData;
 import com.github.nnh2.datalayer.eventbus.ImageInfoEvent;
 import com.github.nnh2.presentationlayer.fragments.core.BaseFragment;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
 
 public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements InfoView {
 
-//	@Bind(R.id.info_count)
+	//	@Bind(R.id.info_count)
 	TextView countView;
 	@Bind(R.id.list)
 	RecyclerView recyclerView;
@@ -50,12 +51,14 @@ public class InfoScreenFragment extends BaseFragment<InfoPresenter> implements I
 	}
 
 	@Override
-	public void setViewCount(ImageInfoEvent event){
+	public void setViewCount(ImageInfoEvent event) {
 //		countView.setText(String.format("%s/%d", event.getCount(), event.getSize()));
 	}
 
 	@Override
 	public void setResponse(List<ImageProcessData> imageInfoEvent) {
+		Collections.sort(imageInfoEvent, (lhs, rhs) ->
+				lhs.getTotal() < rhs.getTotal() ? 1 : -1);
 		adapter.setItems(imageInfoEvent);
 	}
 

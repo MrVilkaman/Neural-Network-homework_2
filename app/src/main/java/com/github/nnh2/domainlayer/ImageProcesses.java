@@ -40,7 +40,7 @@ public class ImageProcesses {
 
 		@Override
 		public void onNext(ImageContentEvent imageContentEvent) {
-			if(imageContentEvent.hasError()){
+			if (imageContentEvent.hasError()) {
 				return;
 			}
 
@@ -49,15 +49,22 @@ public class ImageProcesses {
 			int width = imageContentEvent.getWidth();
 
 
-			List<PixelWrapper> images =  imageStoreProvider.getImages();
+			List<PixelWrapper> images = imageStoreProvider.getImages();
 			List<ImageProcessData> events = new ArrayList<>();
 
-			float full = getChecks(pixels, pixels, height, width);
+			float full = getChecks(pixels, pixels, height, width).black;
 
 			for (PixelWrapper image : images) {
-				int checks = getChecks(image.getPixels(), pixels, height, width);
-				float total = checks / full * 100;
-				events.add(new ImageProcessData(image.getName(), total));
+				Values values = getChecks(image.getPixels(), pixels, height, width);
+				float total = values.black / full;
+				float total1 = values.white / (height * width - full) * 100;
+
+				total = Math.abs(1f - total);
+				total = 1 < total ? 1f : total;
+
+				total = 1f - total;
+				total *= 100;
+				events.add(new ImageProcessData(image.getName(), total, total1));
 			}
 
 
@@ -65,8 +72,8 @@ public class ImageProcesses {
 		}
 	}
 
-	private int getChecks(int[] imagePixels, int[] pixels, int height, int width) {
-		int checks = 0;
+	private Values getChecks(int[] imagePixels, int[] pixels, int height, int width) {
+		Values values = new Values();
 		for (int i = 0; i < height; i++) {
 			final int current = i * width;
 			for (int j = 0; j < width; j++) {
@@ -74,12 +81,24 @@ public class ImageProcesses {
 				int pixel = pixels[index];
 				int pixelImage = imagePixels[index];
 
-				if (pixelImage == Color.BLACK && pixel == pixelImage) {
-					checks++;
+				if (pixelImage == Color.BLACK) {
+					if (pixel == pixelImage) {
+						values.black++;
+					}
+				} else {
+//				if (pixelImage == Color.WHITE) {
+					if (pixel == Color.BLACK) {
+						values.white++;
+					}
 				}
 
 			}
 		}
-		return checks;
+		return values;
+	}
+
+	public class Values {
+		public int black;
+		public int white;
 	}
 }
