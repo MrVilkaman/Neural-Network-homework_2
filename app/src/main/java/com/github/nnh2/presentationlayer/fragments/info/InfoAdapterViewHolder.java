@@ -26,6 +26,6 @@ public class InfoAdapterViewHolder extends AdapterViewHolder<ImageProcessData> {
 	@Override
 	public void bind(ImageProcessData item) {
 		title.setText(item.getTitle());
-		total.setText(String.format("%.1f%% (%.1f%%) %.1f%%", item.getTotal(),item.getTotal1(),item.getNewParam()));
+		total.setText(String.format("%.1f%% =(%.1f%% - %.1f%%)", item.getNewParam(),item.getTotal(),item.getTotal1()));
 	}
 }
