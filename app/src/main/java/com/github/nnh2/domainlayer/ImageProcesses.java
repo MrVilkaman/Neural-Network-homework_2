@@ -95,7 +95,7 @@ public class ImageProcesses {
 			final int current = i * width;
 			for (int j = 0; j < width; j++) {
 				int index = current + j;
-				int pixel = pixels[index];
+				int pixel = pixels[index];	
 				int pixelImage = imagePixels[index];
 
 				if (pixelImage == Color.BLACK) {

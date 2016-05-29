@@ -149,7 +149,7 @@ public class ScaleFilter implements Filters {
 		public boolean hit(int j, int i) {
 			return left == j || right == j || top == i || bottom == i;
 		}
-
+	
 		public void handle(int width, int height, int delta, float deltaPersent) {
 			float del = Math.max(deltaPersent * height, delta);
 			float v0 = top - del;
